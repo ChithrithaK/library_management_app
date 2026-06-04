@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Inventory Catalog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="menu-page">
+    <div class="menu-container">
+        <h1 class="title">Active Book Catalog</h1>
+        <div class="catalog-grid">
+            {% for id, details in books.items() %}
+            <div class="card">
+                <h2>{{ details.title }}</h2>
+                <p><strong>Author:</strong> {{ details.author }}</p>
+                <p><strong>Category:</strong> {{ details.category }}</p>
+                <p><strong>Code:</strong> {{ id }}</p>
+                <span class="status-badge {{ details.status.lower() }}">{{ details.status }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

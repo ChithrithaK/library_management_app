@@ -1,0 +1,28 @@
+name: CD - Build and Push Library System Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code Execution
+      uses: actions/checkout@v3
+
+    - name: Configure Docker Buildx Tools
+      uses: docker/setup-buildx-action@v3
+
+    - name: Authenticate to DockerHub Registry Registry Access
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/library-app:latest
